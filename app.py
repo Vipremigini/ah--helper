@@ -19,7 +19,11 @@ data = {
     ]
 }
 
-def reply(rurl):
+app = Flask(__name__)
+
+@app.post("/api/try")
+def reply():
+    rurl = request["rurl"]
     response = requests.post(url, headers=headers, json=data)
     rdata = response.json()
     rtext = rdata['choices'][0]['message']['content']
@@ -33,19 +37,5 @@ def reply(rurl):
     }]}
     requests.post(rurl, json=send)
 
-app = Flask(__name__)
-
-@app.post("/api/try")
-def trial():
-    thread = threading.Thread(target=reply(request.form.get("response_url")))
-    thread.start()
-
-    return {"blocks": [
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "Processing"
-      }
-    }]}
+    
 
