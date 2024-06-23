@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 @app.post("/api/send")
 def reply():
-    rurl = request["rurl"]
+    rurl = request.form.get("rurl")
     response = requests.post(url, headers=headers, json=data)
     rdata = response.json()
     rtext = rdata['choices'][0]['message']['content']
