@@ -21,7 +21,7 @@ data = {
 
 app = Flask(__name__)
 
-@app.post("/api/try")
+@app.post("/api/send")
 def reply():
     rurl = request["rurl"]
     response = requests.post(url, headers=headers, json=data)
